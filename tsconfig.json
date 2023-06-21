@@ -1,5 +1,4 @@
 {
-  "extends": "tsconfig/base.json",
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "composite": true,
@@ -13,7 +12,10 @@
     "rootDir": "src",
     "strictNullChecks": true,
     "target": "ES2018",
-    "types": []
+    "types": ["node"],
+    "moduleResolution":"node",
+    "skipLibCheck": true
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  
 }

@@ -1,5 +1,5 @@
 {
-    "name": "@quarto/jupyterlab-quarto",
+    "name": "jupyterlab-quarto",
     "version": "0.1.45",
     "description": "Jupyter extension to enable authoring of Quarto documents within Jupyterlab Notebooks.",
     "keywords": [
@@ -57,10 +57,11 @@
         "watch:labextension": "jupyter labextension watch ."
     },
     "dependencies": {
-        "@jupyterlab/application": "^3.0.0",
+        "@jupyterlab/application": "^3.1.0",
         "@jupyterlab/apputils": "^3.0.0",
         "@jupyterlab/codemirror": "^3.0.0",
-        "@jupyterlab/mainmenu": "^3.0.0",
+        "@jupyterlab/mainmenu": "^3.5.2",
+        "@jupyterlab/notebook": "^3.5.2",
         "@jupyterlab/rendermime": "^3.0.0",
         "@jupyterlab/rendermime-interfaces": "^3.0.0",
         "@jupyterlab/settingregistry": "^3.0.0",
@@ -81,7 +82,10 @@
     "devDependencies": {
         "@jupyterlab/builder": "^3.1.0",
         "@types/codemirror": "5.60.5",
+        "@types/d3": "^7.4.0",
+        "@types/dompurify": "^3.0.2",
         "@types/jest": "^26.0.0",
+        "@types/js-yaml": "^4.0.5",
         "@types/markdown-it": "^12.2.3",
         "@types/markdown-it-attrs": "^4.1.0",
         "@types/mermaid": "^9.1.0",
