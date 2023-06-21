@@ -5,24 +5,24 @@
 *
 */
 import { IRenderMime, markdownRendererFactory } from '@jupyterlab/rendermime';
-import { CodeMirrorEditor } from '@jupyterlab/codemirror';
+import { IEditorLanguageRegistry, IEditorThemeRegistry } from '@jupyterlab/codemirror';
 
 import MarkdownIt, { Options } from 'markdown-it';
 
 import { RenderedMarkdown } from './widgets';
 import { Hook, MarkdownItPluginProvider, Ranked, Renderer } from './types';
-import { codeMirrorHighlight, codeMirrorPreloadHook } from './hooks/codemirror';
+import { codeMirrorHighlighter, codeMirrorPreloadHook } from './hooks/codemirror';
 
 // Provides resolved MarkdownIt options using the passed in options, the plugin
 // options, and default options.
-const resolveOptions = (widget: RenderedMarkdown, options: Options, providers: MarkdownItPluginProvider[]) => {
+const resolveOptions = (widget: RenderedMarkdown, options: Options, providers: MarkdownItPluginProvider[], themeRegistry: IEditorThemeRegistry, languageRegistry: IEditorLanguageRegistry) => {
   // Build options table
   let allOptions: Options = {
     html: true,
     linkify: true,
     typographer: true,
-    langPrefix: `cm-s-${CodeMirrorEditor.defaultConfig.theme} language-`,
-    highlight: codeMirrorHighlight
+    langPrefix: `cm-s-${themeRegistry.defaultTheme} language-`,
+    highlight: codeMirrorHighlighter(languageRegistry)
   };
   for (const plugin of providers) {
     if (plugin.options) {
@@ -35,12 +35,13 @@ const resolveOptions = (widget: RenderedMarkdown, options: Options, providers: M
     }
   }
 
+
   return {
     ...allOptions,
     ...options };
 }
 
-export function markdownItManager() {
+export function markdownItManager(themeRegistry: IEditorThemeRegistry, languageRegistry: IEditorLanguageRegistry) {
 
   // The plugin providers
   const pluginProviders: Map<string, MarkdownItPluginProvider> = new Map();
@@ -61,7 +62,7 @@ export function markdownItManager() {
       providers.sort(sortRanked);
   
       // Create MarkdownIt instance
-      const allOptions = resolveOptions(widget, options, providers);
+      const allOptions = resolveOptions(widget, options, providers, themeRegistry, languageRegistry);
       let md = new MarkdownIt('default', allOptions);
   
       // Lifecycle hooks
@@ -69,8 +70,8 @@ export function markdownItManager() {
       const postRenderHooks: Hook<HTMLElement, void>[] = [];
 
       // add mode pre-loading hook if using default highlighter
-      if (codeMirrorHighlight === allOptions.highlight) {
-        preParseHooks.push(codeMirrorPreloadHook());
+      if (codeMirrorHighlighter(languageRegistry) === allOptions.highlight) {
+        preParseHooks.push(codeMirrorPreloadHook(languageRegistry));
       }
   
       // Build MarkdownIt and load lifecycle hooks

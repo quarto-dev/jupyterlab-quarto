@@ -9,6 +9,8 @@ import {
   JupyterFrontEndPlugin
 } from '@jupyterlab/application';
 
+import { IEditorLanguageRegistry, IEditorThemeRegistry } from '@jupyterlab/codemirror';
+
 import { MarkdownItManager } from './types';
 import { mermaid } from './providers/mermaid';
 import { kMarkdownItMgr, kPackageNamespace } from './const';
@@ -38,11 +40,12 @@ const plugin: JupyterFrontEndPlugin<MarkdownItManager> = {
   id: `${kPackageNamespace}:plugin`,
   autoStart: true,
   provides: kMarkdownItMgr,
-  activate: (_app: JupyterFrontEnd) => {
+  requires: [IEditorThemeRegistry, IEditorLanguageRegistry],
+  activate: (_app: JupyterFrontEnd, themeRegistry: IEditorThemeRegistry, languageRegistry: IEditorLanguageRegistry) => {
     console.log('JupyterLab extension jupyterlab-quarto is activated!');
 
     // Create a markdown rendering manager 
-    return markdownItManager();
+    return markdownItManager(themeRegistry, languageRegistry);
   }
 };
 

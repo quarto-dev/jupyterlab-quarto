@@ -6,9 +6,9 @@
 */
 
 import { Hook } from "../types";
-import { Mode } from '@jupyterlab/codemirror';
+import { IEditorLanguageRegistry } from '@jupyterlab/codemirror';
 
-export function codeMirrorPreloadHook(): Hook<string, string> {
+export function codeMirrorPreloadHook(registry: IEditorLanguageRegistry): Hook<string, string> {
   // TODO: Properly deal with {r}, {{r}} style expressions
   const fenced = new RegExp(/^`{3}([^\s]+)/g);
 
@@ -18,7 +18,7 @@ export function codeMirrorPreloadHook(): Hook<string, string> {
       let match: RegExpMatchArray | null;
       while ((match = fenced.exec(source))) {
         if (!newModes.has(match[1])) {
-          newModes.set(match[1], Mode.ensure(match[1]));
+          newModes.set(match[1], registry.getLanguage(match[1]));
         }
       }
       if (newModes.size) {
@@ -29,12 +29,41 @@ export function codeMirrorPreloadHook(): Hook<string, string> {
   };
 }
 
-export const codeMirrorHighlight = (str: string, lang: string) => {
+export const codeMirrorHighlighter = (languageRegistry: IEditorLanguageRegistry) => {
+  return (str: string, lang: string, _attr: any) => {
+    if (!lang) {
+      return ''; // use external default escaping
+    }
+    try {
+      const spec = languageRegistry.findBest(lang);
+      if (!spec) {
+        console.warn(`No CodeMirror mode: ${lang}`);
+        return '';
+      }
+  
+      const el = document.createElement('div');
+      try {
+        languageRegistry.highlight(str, spec, el);
+        return el.innerHTML;
+      } catch (err) {
+        console.warn(`Failed to highlight ${lang} code`, err);
+      }
+    } catch (err) {
+      console.warn(`No CodeMirror mode: ${lang}`);
+      console.warn(`Require CodeMirror mode error: ${err}`);
+    }
+    return '';
+  };
+  
+}
+
+
+export const codeMirrorHighlight = (str: string, lang: string, registry: IEditorLanguageRegistry) => {
   if (!lang) {
     return ''; // use external default escaping
   }
   try {
-    const spec = Mode.findBest(lang);
+    const spec = registry.findBest(lang);
     if (!spec) {
       console.warn(`No CodeMirror mode: ${lang}`);
       return '';
@@ -42,7 +71,7 @@ export const codeMirrorHighlight = (str: string, lang: string) => {
 
     const el = document.createElement('div');
     try {
-      Mode.run(str, spec.mime, el);
+      registry.highlight(str, spec, el);
       return el.innerHTML;
     } catch (err) {
       console.warn(`Failed to highlight ${lang} code`, err);
