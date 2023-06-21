@@ -1,14 +1,13 @@
 /*
-* types.ts
-*
-* Copyright (C) 2020-2023 Posit Software, PBC
-*
-*/
+ * types.ts
+ *
+ * Copyright (C) 2020-2023 Posit Software, PBC
+ *
+ */
 import MarkdownIt from 'markdown-it';
 import { RenderedMarkdown } from './widgets';
 import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 import { ISanitizer } from '@jupyterlab/apputils';
-
 
 // Manages MarkdownIt Plugins
 export interface MarkdownItManager {
@@ -46,14 +45,14 @@ export interface MarkdownItPluginProvider extends Ranked {
   options?(widget: RenderedMarkdown): Partial<MarkdownIt.Options>;
 
   // Hooks called during the various Markdown rendering phases
-  hooks?: { 
+  hooks?: {
     // Source transformer hook, invoked before Markdown parsing
     preParse?: Hook<string, string>;
 
     // Modifier hook, invoked after rendered Markdown
     // has been added to the DOM
     postRender?: Hook<HTMLElement, void>;
-  }
+  };
 }
 
 export interface RenderOptions {
@@ -86,7 +85,6 @@ export interface RenderOptions {
 }
 
 export interface Renderer {
-
   // render content to HTML
   render(content: string): string;
 

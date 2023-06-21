@@ -14,18 +14,17 @@ https://github.com/runarberg/markdown-it-math
 It differs in that it takes (a subset of) LaTeX as input and relies on MathJax
 for rendering output.
 */
-import type MarkdownIt from "markdown-it";
+import type MarkdownIt from 'markdown-it';
 
-import type Token from "markdown-it/lib/token";
-import type StateInline from "markdown-it/lib/rules_inline/state_inline";
-import type StateBlock from "markdown-it/lib/rules_block/state_block";
+import type Token from 'markdown-it/lib/token';
+import type StateInline from 'markdown-it/lib/rules_inline/state_inline';
+import type StateBlock from 'markdown-it/lib/rules_block/state_block';
 
-export const kTokMathBlock = "math_block";
-export const kTokMathInline = "math_inline";
-
+export const kTokMathBlock = 'math_block';
+export const kTokMathInline = 'math_inline';
 
 interface ConvertOptions {
-  display: boolean
+  display: boolean;
 }
 
 function renderMath(content: string, convertOptions: ConvertOptions): string {
@@ -61,19 +60,19 @@ function isValidDelim(state: StateInline, pos: number) {
 
   return {
     can_open: can_open,
-    can_close: can_close,
+    can_close: can_close
   };
 }
 
 function math_inline(state: StateInline, silent: boolean) {
-  if (state.src[state.pos] !== "$") {
+  if (state.src[state.pos] !== '$') {
     return false;
   }
 
   let res = isValidDelim(state, state.pos);
   if (!res.can_open) {
     if (!silent) {
-      state.pending += "$";
+      state.pending += '$';
     }
     state.pos += 1;
     return true;
@@ -85,11 +84,11 @@ function math_inline(state: StateInline, silent: boolean) {
   // we have found an opening delimieter already.
   const start = state.pos + 1;
   let match = start;
-  while ((match = state.src.indexOf("$", match)) !== -1) {
+  while ((match = state.src.indexOf('$', match)) !== -1) {
     // Found potential $, look for escapes, pos will point to
     // first non escape when complete
     let pos = match - 1;
-    while (state.src[pos] === "\\") {
+    while (state.src[pos] === '\\') {
       pos -= 1;
     }
 
@@ -103,7 +102,7 @@ function math_inline(state: StateInline, silent: boolean) {
   // No closing delimter found.  Consume $ and continue.
   if (match === -1) {
     if (!silent) {
-      state.pending += "$";
+      state.pending += '$';
     }
     state.pos = start;
     return true;
@@ -112,7 +111,7 @@ function math_inline(state: StateInline, silent: boolean) {
   // Check if we have empty content, ie: $$.  Do not parse.
   if (match - start === 0) {
     if (!silent) {
-      state.pending += "$$";
+      state.pending += '$$';
     }
     state.pos = start + 1;
     return true;
@@ -122,15 +121,15 @@ function math_inline(state: StateInline, silent: boolean) {
   res = isValidDelim(state, match);
   if (!res.can_close) {
     if (!silent) {
-      state.pending += "$";
+      state.pending += '$';
     }
     state.pos = start;
     return true;
   }
 
   if (!silent) {
-    const token = state.push("math_inline", "math", 0);
-    token.markup = "$";
+    const token = state.push('math_inline', 'math', 0);
+    token.markup = '$';
     token.content = state.src.slice(start, match);
   }
 
@@ -148,12 +147,12 @@ function math_block(
   let found = false,
     pos = state.bMarks[start] + state.tShift[start],
     max = state.eMarks[start],
-    lastLine = "";
+    lastLine = '';
 
   if (pos + 2 > max) {
     return false;
   }
-  if (state.src.slice(pos, pos + 2) !== "$$") {
+  if (state.src.slice(pos, pos + 2) !== '$$') {
     return false;
   }
 
@@ -163,7 +162,7 @@ function math_block(
   if (silent) {
     return true;
   }
-  if (firstLine.trim().slice(-2) === "$$") {
+  if (firstLine.trim().slice(-2) === '$$') {
     // Single line expression
     firstLine = firstLine.trim().slice(0, -2);
     found = true;
@@ -188,7 +187,7 @@ function math_block(
     const line = state.src.slice(pos, max).trim();
     const match = line.match(/^\$\$\s*(\{.*\})?\s*$/);
     if (match) {
-      lastPos = state.src.slice(0, max).lastIndexOf("$$");
+      lastPos = state.src.slice(0, max).lastIndexOf('$$');
       lastLine = state.src.slice(pos, lastPos);
       attrStr = match[1];
       found = true;
@@ -197,42 +196,46 @@ function math_block(
 
   state.line = next + 1;
 
-  const token = state.push(kTokMathBlock, "math", 0);
+  const token = state.push(kTokMathBlock, 'math', 0);
   token.block = true;
   if (attrStr) {
     token.info = attrStr;
   }
   token.content =
-    (firstLine && firstLine.trim() ? firstLine + "\n" : "") +
+    (firstLine && firstLine.trim() ? firstLine + '\n' : '') +
     state.getLines(start + 1, next, state.tShift[start], true) +
-    (lastLine && lastLine.trim() ? lastLine : "");
+    (lastLine && lastLine.trim() ? lastLine : '');
   token.map = [start, state.line];
-  token.markup = "$$";
+  token.markup = '$$';
   return true;
 }
 
-export function mathjaxPlugin(md: MarkdownIt, options?: { enableInlines?: boolean }) {
+export function mathjaxPlugin(
+  md: MarkdownIt,
+  options?: { enableInlines?: boolean }
+) {
   // Default options
   options = options || {};
-  const enableInlines = (options.enableInlines !== undefined) ? options.enableInlines : true; 
+  const enableInlines =
+    options.enableInlines !== undefined ? options.enableInlines : true;
 
   const convertOptions = {
     display: false
-  }
+  };
 
   // set MathJax as the renderer for markdown-it-simplemath
-  md.inline.ruler.after("escape", kTokMathInline, math_inline);
-  md.block.ruler.after("blockquote", kTokMathBlock, math_block, {
-    alt: ["paragraph", "reference", "blockquote", "list"],
+  md.inline.ruler.after('escape', kTokMathInline, math_inline);
+  md.block.ruler.after('blockquote', kTokMathBlock, math_block, {
+    alt: ['paragraph', 'reference', 'blockquote', 'list']
   });
   if (enableInlines) {
     md.renderer.rules.math_inline = function (tokens: Token[], idx: number) {
       convertOptions.display = false;
-      return renderMath(tokens[idx].content, convertOptions)
+      return renderMath(tokens[idx].content, convertOptions);
     };
   }
   md.renderer.rules.math_block = function (tokens: Token[], idx: number) {
     convertOptions.display = true;
-    return renderMath(tokens[idx].content, convertOptions)
+    return renderMath(tokens[idx].content, convertOptions);
   };
-};
+}

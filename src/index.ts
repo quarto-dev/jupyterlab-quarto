@@ -1,15 +1,18 @@
 /*
-* index.ts
-*
-* Copyright (C) 2020-2023 Posit Software, PBC
-*
-*/
+ * index.ts
+ *
+ * Copyright (C) 2020-2023 Posit Software, PBC
+ *
+ */
 import {
   JupyterFrontEnd,
   JupyterFrontEndPlugin
 } from '@jupyterlab/application';
 
-import { IEditorLanguageRegistry, IEditorThemeRegistry } from '@jupyterlab/codemirror';
+import {
+  IEditorLanguageRegistry,
+  IEditorThemeRegistry
+} from '@jupyterlab/codemirror';
 
 import { MarkdownItManager } from './types';
 import { mermaid } from './providers/mermaid';
@@ -41,10 +44,14 @@ const plugin: JupyterFrontEndPlugin<MarkdownItManager> = {
   autoStart: true,
   provides: kMarkdownItMgr,
   requires: [IEditorThemeRegistry, IEditorLanguageRegistry],
-  activate: (_app: JupyterFrontEnd, themeRegistry: IEditorThemeRegistry, languageRegistry: IEditorLanguageRegistry) => {
+  activate: (
+    _app: JupyterFrontEnd,
+    themeRegistry: IEditorThemeRegistry,
+    languageRegistry: IEditorLanguageRegistry
+  ) => {
     console.log('JupyterLab extension jupyterlab-quarto is activated!');
 
-    // Create a markdown rendering manager 
+    // Create a markdown rendering manager
     return markdownItManager(themeRegistry, languageRegistry);
   }
 };
@@ -76,6 +83,5 @@ const kQuartoExtensions = [
   shortcodes
 ];
 
-
 // The extensions that should be enabled for Jupyter
-export default [plugin, ...kPandocExtensions, ...kQuartoExtensions ];
+export default [plugin, ...kPandocExtensions, ...kQuartoExtensions];

@@ -1,14 +1,16 @@
 /*
-* hooks.ts
-*
-* Copyright (C) 2020-2023 Posit Software, PBC
-*
-*/
+ * hooks.ts
+ *
+ * Copyright (C) 2020-2023 Posit Software, PBC
+ *
+ */
 
-import { Hook } from "../types";
+import { Hook } from '../types';
 import { IEditorLanguageRegistry } from '@jupyterlab/codemirror';
 
-export function codeMirrorPreloadHook(registry: IEditorLanguageRegistry): Hook<string, string> {
+export function codeMirrorPreloadHook(
+  registry: IEditorLanguageRegistry
+): Hook<string, string> {
   // TODO: Properly deal with {r}, {{r}} style expressions
   const fenced = new RegExp(/^`{3}([^\s]+)/g);
 
@@ -29,7 +31,9 @@ export function codeMirrorPreloadHook(registry: IEditorLanguageRegistry): Hook<s
   };
 }
 
-export const codeMirrorHighlighter = (languageRegistry: IEditorLanguageRegistry) => {
+export const codeMirrorHighlighter = (
+  languageRegistry: IEditorLanguageRegistry
+) => {
   return (str: string, lang: string, _attr: any) => {
     if (!lang) {
       return ''; // use external default escaping
@@ -40,7 +44,7 @@ export const codeMirrorHighlighter = (languageRegistry: IEditorLanguageRegistry)
         console.warn(`No CodeMirror mode: ${lang}`);
         return '';
       }
-  
+
       const el = document.createElement('div');
       try {
         languageRegistry.highlight(str, spec, el);
@@ -54,11 +58,13 @@ export const codeMirrorHighlighter = (languageRegistry: IEditorLanguageRegistry)
     }
     return '';
   };
-  
-}
+};
 
-
-export const codeMirrorHighlight = (str: string, lang: string, registry: IEditorLanguageRegistry) => {
+export const codeMirrorHighlight = (
+  str: string,
+  lang: string,
+  registry: IEditorLanguageRegistry
+) => {
   if (!lang) {
     return ''; // use external default escaping
   }

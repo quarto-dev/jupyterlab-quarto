@@ -1,9 +1,9 @@
 /*
-* figure-divs.ts
-*
-* Copyright (C) 2020-2023 Posit Software, PBC
-*
-*/
+ * figure-divs.ts
+ *
+ * Copyright (C) 2020-2023 Posit Software, PBC
+ *
+ */
 import { figureDivsPlugin } from '../plugins/figure-divs';
 import { markdownItExtension } from './provider';
 

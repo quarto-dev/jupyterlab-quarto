@@ -3,16 +3,12 @@
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-export default interface IToken
-{
-    children: IToken[];
+export default interface IToken {
+  children: IToken[];
 
-    content: string;
+  content: string;
 
-    map: number[];
+  map: number[];
 
-    attrSet(
-        name: string,
-        value: string
-    ): void;
+  attrSet(name: string, value: string): void;
 }

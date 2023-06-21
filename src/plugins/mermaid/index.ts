@@ -1,17 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import MarkdownIt from "markdown-it";
-import Mermaid from "mermaid";
+import MarkdownIt from 'markdown-it';
+import Mermaid from 'mermaid';
 
-export default function mermaidPlugin(md: MarkdownIt, options: { dark?: boolean}) {
-
-
-  const kLang = "mermaid";
-  const kContainer = "quarto-mermaid";
+export default function mermaidPlugin(
+  md: MarkdownIt,
+  options: { dark?: boolean }
+) {
+  const kLang = 'mermaid';
+  const kContainer = 'quarto-mermaid';
 
   Mermaid.initialize({
-    securityLevel: "loose",
-    theme: options.dark ? "dark" : "default",
-    ...options,
+    securityLevel: 'loose',
+    theme: options.dark ? 'dark' : 'default',
+    ...options
   });
 
   const defaultFenceRenderer = md.renderer.rules.fence;
@@ -25,14 +26,19 @@ export default function mermaidPlugin(md: MarkdownIt, options: { dark?: boolean}
     slf: any
   ) {
     const token = tokens[idx];
-    if (token.info === kLang || (token.attrs !== null && token.attrs.length === 1 && token.attrs[0][0] === kLang))  {
-      let imageHTML = "";
+    if (
+      token.info === kLang ||
+      (token.attrs !== null &&
+        token.attrs.length === 1 &&
+        token.attrs[0][0] === kLang)
+    ) {
+      let imageHTML = '';
       const imageAttrs: string[][] = [];
-  
+
       // Create element to render into
-      const element = document.createElement("div");
+      const element = document.createElement('div');
       document.body.appendChild(element);
-  
+
       // Render with Mermaid
       try {
         Mermaid.mermaidAPI.render(
@@ -43,8 +49,8 @@ export default function mermaidPlugin(md: MarkdownIt, options: { dark?: boolean}
             const mermaidEl = document.getElementById(kContainer);
             if (mermaidEl !== null) {
               imageAttrs.push([
-                "style",
-                `max-width:${mermaidEl.style.maxWidth};max-height:${mermaidEl.style.maxHeight}`,
+                'style',
+                `max-width:${mermaidEl.style.maxWidth};max-height:${mermaidEl.style.maxHeight}`
               ]);
             }
             // Store HTML
@@ -53,20 +59,23 @@ export default function mermaidPlugin(md: MarkdownIt, options: { dark?: boolean}
           element
         );
       } catch (e) {
-        return `<pre>Failed to render mermaid diagram.${e}</pre>`
+        return `<pre>Failed to render mermaid diagram.${e}</pre>`;
       } finally {
         element.remove();
       }
-  
+
       // Store encoded image data
-      imageAttrs.push(["src", `data:image/svg+xml,${encodeURIComponent(imageHTML)}`]);
+      imageAttrs.push([
+        'src',
+        `data:image/svg+xml,${encodeURIComponent(imageHTML)}`
+      ]);
       return `<img ${slf.renderAttrs({ attrs: imageAttrs })}>`;
     } else {
       if (defaultFenceRenderer !== undefined) {
         return defaultFenceRenderer(tokens, idx, options, env, slf);
       }
       // Missing fence renderer!
-      return "";
+      return '';
     }
   }
   md.renderer.rules.fence = mermaidFenceRenderer;

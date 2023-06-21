@@ -3,25 +3,20 @@
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import IToken from "./IToken";
+import IToken from './IToken';
 
-export default interface IState
-{
-    src: string;
+export default interface IState {
+  src: string;
 
-    bMarks: number[];
+  bMarks: number[];
 
-    eMarks: number[];
+  eMarks: number[];
 
-    blkIndent: number;
+  blkIndent: number;
 
-    tShift: number[];
+  tShift: number[];
 
-    line: number;
+  line: number;
 
-    push(
-        action: string,
-        tag: string,
-        level: number
-    ): IToken;
+  push(action: string, tag: string, level: number): IToken;
 }

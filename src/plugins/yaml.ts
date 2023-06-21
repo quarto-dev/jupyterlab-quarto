@@ -14,11 +14,11 @@
  *
  */
 
-import MarkdownIt from "markdown-it";
-import StateBlock from "markdown-it/lib/rules_block/state_block";
-import Token from "markdown-it/lib/token";
-import * as yaml from "js-yaml";
-import { decorator } from "./utils/html";
+import MarkdownIt from 'markdown-it';
+import StateBlock from 'markdown-it/lib/rules_block/state_block';
+import Token from 'markdown-it/lib/token';
+import * as yaml from 'js-yaml';
+import { decorator } from './utils/html';
 
 // Typescript version of https://github.com/parksb/markdown-it-front-matter
 // TODO: Rationalize this with quarto-core/src/markdownit-yaml.ts
@@ -27,7 +27,7 @@ const kTokFrontMatter = 'front_matter';
 
 export function yamlPlugin(md: MarkdownIt, cb?: (yaml: unknown) => void) {
   const min_markers = 3,
-    marker_str = "-",
+    marker_str = '-',
     marker_char = marker_str.charCodeAt(0),
     marker_len = marker_str.length;
 
@@ -81,7 +81,7 @@ export function yamlPlugin(md: MarkdownIt, cb?: (yaml: unknown) => void) {
         break;
       }
 
-      if (state.src.slice(start, max) === "...") {
+      if (state.src.slice(start, max) === '...') {
         break;
       }
 
@@ -131,25 +131,25 @@ export function yamlPlugin(md: MarkdownIt, cb?: (yaml: unknown) => void) {
     // Ensure that we have real yaml here
     const markup = state.src.slice(startLine, pos);
     const yaml = parseFrontMatterStr(markup);
-    const isYamlBlock = yaml !== null && typeof(yaml) === "object";
-    
+    const isYamlBlock = yaml !== null && typeof yaml === 'object';
+
     // If this is yaml, render it
     if (isYamlBlock && user_closed) {
       const old_parent = state.parentType;
       const old_line_max = state.lineMax;
-  
-      const token = state.push(kTokFrontMatter, "", 0);
+
+      const token = state.push(kTokFrontMatter, '', 0);
       token.hidden = true;
       token.markup = markup;
       token.block = true;
       token.map = [startLine, pos];
       token.meta = state.src.slice(start_content, start - 1);
-  
+
       if (cb) {
         cb(token.meta);
-      }    
+      }
       state.parentType = old_parent;
-      state.lineMax = old_line_max;  
+      state.lineMax = old_line_max;
       state.line = nextLine + (user_closed ? 1 : 0);
       return true;
     } else {
@@ -159,12 +159,12 @@ export function yamlPlugin(md: MarkdownIt, cb?: (yaml: unknown) => void) {
     }
   }
 
-  md.block.ruler.before("table", kTokFrontMatter, frontMatter, {
-    alt: ["paragraph", "reference", "blockquote", "list"],
+  md.block.ruler.before('table', kTokFrontMatter, frontMatter, {
+    alt: ['paragraph', 'reference', 'blockquote', 'list']
   });
 
   // Add rendering
-  md.renderer.rules[kTokFrontMatter] = renderFrontMatter
+  md.renderer.rules[kTokFrontMatter] = renderFrontMatter;
 }
 
 function renderFrontMatter(tokens: Token[], idx: number): string {
@@ -174,35 +174,34 @@ function renderFrontMatter(tokens: Token[], idx: number): string {
   const frontUnknown = parseFrontMatterStr(token.markup);
 
   // Extract important content
-  if (typeof(frontUnknown) === "object") {
+  if (typeof frontUnknown === 'object') {
     const titleBlock: TitleBlock = {};
     const frontMatter = frontUnknown as Record<string, unknown>;
 
     const readStr = (key: string) => {
       if (frontMatter[key] === undefined) {
         return undefined;
-      } else if (typeof(frontMatter[key]) === "string") {
+      } else if (typeof frontMatter[key] === 'string') {
         const val = frontMatter[key] as string;
         delete frontMatter[key];
         return val;
       } else {
         return undefined;
       }
-    }
-    
+    };
+
     // Read simple values
-    titleBlock.title = readStr("title");
-    titleBlock.subtitle = readStr("subtitle");
-    titleBlock.abstract = readStr("abstract");
-    titleBlock.date = readStr("date");
-    titleBlock.modified = readStr("date-modified");
-    titleBlock.doi = readStr("doi");
-    
+    titleBlock.title = readStr('title');
+    titleBlock.subtitle = readStr('subtitle');
+    titleBlock.abstract = readStr('abstract');
+    titleBlock.date = readStr('date');
+    titleBlock.modified = readStr('date-modified');
+    titleBlock.doi = readStr('doi');
+
     // Read Authors
     titleBlock.authors = parseAuthor(frontMatter.author || frontMatter.authors);
     delete frontMatter.author;
     delete frontMatter.authors;
-
 
     // The final rendered HTML output
     const titleLines: string[] = [];
@@ -212,9 +211,8 @@ function renderFrontMatter(tokens: Token[], idx: number): string {
     titleLines.push(titleRendered);
 
     if (Object.keys(frontMatter).length > 0) {
-
       // decorator
-      const decor = decorator(["Options"]);
+      const decor = decorator(['Options']);
       titleLines.push(decor);
 
       // yaml
@@ -223,9 +221,9 @@ function renderFrontMatter(tokens: Token[], idx: number): string {
 
       titleLines.push(otherYamlRendered);
     }
-    return titleLines.join("\n");
+    return titleLines.join('\n');
   } else {
-    return "";
+    return '';
   }
 }
 
@@ -242,19 +240,19 @@ interface TitleBlock {
   date?: string;
   modified?: string;
   doi?: string;
-  authors?: Author[]; 
+  authors?: Author[];
 }
 
 type DocMetaValue = {
   value: string;
-  padded?: boolean
+  padded?: boolean;
 };
 
 // TODO: Use core function instead
 function parseFrontMatterStr(str: string) {
-  str = str.replace(/---\s*$/, "");
+  str = str.replace(/---\s*$/, '');
   try {
-    return yaml.load(str, { schema: yaml.FAILSAFE_SCHEMA});
+    return yaml.load(str, { schema: yaml.FAILSAFE_SCHEMA });
   } catch (error) {
     return undefined;
   }
@@ -275,24 +273,24 @@ function renderTitle(titleBlock: TitleBlock) {
   if (titleBlock.authors && titleBlock.authors?.length > 0) {
     const names: DocMetaValue[] = [];
     const affils: DocMetaValue[] = [];
-    
 
     for (let i = 0; i < titleBlock.authors.length; i++) {
-      const author = titleBlock.authors[i];      
+      const author = titleBlock.authors[i];
       if (author.orcid) {
-        names.push(
-          { 
-            value: `${author.name}<a href="https://orcid.org/${author.orcid}" class="quarto-orcid"><i></i></a>`,
-            padded: i > 0
-          });
+        names.push({
+          value: `${author.name}<a href="https://orcid.org/${author.orcid}" class="quarto-orcid"><i></i></a>`,
+          padded: i > 0
+        });
       } else {
-        names.push({ value: author.name, padded: i > 0 })
+        names.push({ value: author.name, padded: i > 0 });
       }
-      
+
       // Place empty rows to allow affiliations to line up
-      const emptyCount = author.affil ? Math.max(author.affil.length - 1, 0) : 0;
+      const emptyCount = author.affil
+        ? Math.max(author.affil.length - 1, 0)
+        : 0;
       for (let j = 0; j < emptyCount; j++) {
-        names.push({ value: "&nbsp;"});
+        names.push({ value: '&nbsp;' });
       }
 
       // Collect affilations
@@ -304,30 +302,36 @@ function renderTitle(titleBlock: TitleBlock) {
             padded: i > 0 && k == 0
           });
         }
-  
       }
     }
 
-    const authLabel = names.length === 1 ? "Author" : "Authors";
+    const authLabel = names.length === 1 ? 'Author' : 'Authors';
     metadataBlocks.push(renderDocMeta(authLabel, names));
 
     if (affils.length > 0) {
-      const affilLabel = affils.length === 1 ? "Affiliation" : "Affiliations";
+      const affilLabel = affils.length === 1 ? 'Affiliation' : 'Affiliations';
       metadataBlocks.push(renderDocMeta(affilLabel, affils));
     }
+  }
 
-  }
-  
   if (titleBlock.date) {
-    metadataBlocks.push(renderDocMeta("Date", [{value: titleBlock.date}]));
+    metadataBlocks.push(renderDocMeta('Date', [{ value: titleBlock.date }]));
   }
-  
+
   if (titleBlock.modified) {
-    metadataBlocks.push(renderDocMeta("Modified", [{value: titleBlock.modified}]));
+    metadataBlocks.push(
+      renderDocMeta('Modified', [{ value: titleBlock.modified }])
+    );
   }
 
   if (titleBlock.doi) {
-    metadataBlocks.push(renderDocMeta("DOI", [{value: `<a href="https://doi.org/${titleBlock.doi}">${titleBlock.doi}</a>`}]));
+    metadataBlocks.push(
+      renderDocMeta('DOI', [
+        {
+          value: `<a href="https://doi.org/${titleBlock.doi}">${titleBlock.doi}</a>`
+        }
+      ])
+    );
   }
 
   if (metadataBlocks.length > 0) {
@@ -338,17 +342,19 @@ function renderTitle(titleBlock: TitleBlock) {
     rendered.push(`<p class="quarto-abstract">${titleBlock.abstract}</p>`);
   }
 
-  return rendered.join("\n");
+  return rendered.join('\n');
 }
 
 function renderDocMetas(docMetas: string[]) {
   const rendered: string[] = [];
 
   rendered.push(`<div class="quarto-meta-block">`);
-  docMetas.forEach((docMeta) => { rendered.push(docMeta)});
+  docMetas.forEach(docMeta => {
+    rendered.push(docMeta);
+  });
   rendered.push(`</div>`);
 
-  return rendered.join("\n");
+  return rendered.join('\n');
 }
 
 function renderDocMeta(label: string, vals: DocMetaValue[]) {
@@ -356,47 +362,48 @@ function renderDocMeta(label: string, vals: DocMetaValue[]) {
 
   rendered.push(`<div class="quarto-meta">`);
   rendered.push(`<p class="quarto-meta-title">${label}</p>`);
-  vals.forEach((val) => {
-    const clz = val.padded ? ` class="quarto-meta-padded"` : "";
+  vals.forEach(val => {
+    const clz = val.padded ? ` class="quarto-meta-padded"` : '';
     rendered.push(`<p${clz}>${val.value}</p>`);
   });
   rendered.push(`</div>`);
 
-  return rendered.join("\n");
+  return rendered.join('\n');
 }
 
-function parseAuthor(author: unknown) : Author[] {
+function parseAuthor(author: unknown): Author[] {
   const authorsRaw = Array.isArray(author) ? author : [author];
   const authors: Author[] = [];
   for (const authorRaw of authorsRaw) {
-    if (typeof(authorRaw) === "string") {
+    if (typeof authorRaw === 'string') {
       authors.push({
         name: authorRaw
       });
-    } else if (typeof(authorRaw) === "object") {
-
+    } else if (typeof authorRaw === 'object') {
       const str = (key: string, defaultValue?: string) => {
-        if (typeof(authorRaw[key]) === "string") {
+        if (typeof authorRaw[key] === 'string') {
           return authorRaw[key] as string;
         } else {
           return defaultValue;
         }
-      }
+      };
 
       const affiliations: string[] = [];
-      const affiliationSimple = str("affiliation");
+      const affiliationSimple = str('affiliation');
       if (affiliationSimple) {
         affiliations.push(affiliationSimple);
       } else if (authorRaw.affiliations) {
-        const affils = Array.isArray(authorRaw.affiliations) ? authorRaw.affiliations as unknown[] : [authorRaw.affiliations];
+        const affils = Array.isArray(authorRaw.affiliations)
+          ? (authorRaw.affiliations as unknown[])
+          : [authorRaw.affiliations];
         affils.forEach((affilRaw: unknown) => {
-          if (typeof(affilRaw) === "string") {
+          if (typeof affilRaw === 'string') {
             affiliations.push(affilRaw);
-          // eslint-disable-next-line no-constant-condition
-          } else if (typeof(affilRaw === "object")) {
+            // eslint-disable-next-line no-constant-condition
+          } else if (typeof (affilRaw === 'object')) {
             const affilRecord = affilRaw as Record<string, unknown>;
             const name = affilRecord.name;
-            if (typeof(name) === "string") {
+            if (typeof name === 'string') {
               affiliations.push(name);
             }
           }
@@ -404,10 +411,10 @@ function parseAuthor(author: unknown) : Author[] {
       }
 
       authors.push({
-        name: str("name", "")!,
-        orcid: str("orcid"),
+        name: str('name', '')!,
+        orcid: str('orcid'),
         affil: affiliations
-      })
+      });
     }
   }
   return authors;

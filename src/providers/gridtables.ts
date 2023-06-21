@@ -1,9 +1,9 @@
 /*
-* gridtables.ts
-*
-* Copyright (C) 2020-2023 Posit Software, PBC
-*
-*/
+ * gridtables.ts
+ *
+ * Copyright (C) 2020-2023 Posit Software, PBC
+ *
+ */
 import gridTableRulePlugin from '../plugins/gridtables';
 import { markdownItExtension } from './provider';
 
@@ -14,4 +14,3 @@ export const gridtables = markdownItExtension({
     return [gridTableRulePlugin];
   }
 });
-

@@ -1,21 +1,33 @@
 /*
-* manager.ts
-*
-* Copyright (C) 2020-2023 Posit Software, PBC
-*
-*/
+ * manager.ts
+ *
+ * Copyright (C) 2020-2023 Posit Software, PBC
+ *
+ */
 import { IRenderMime, markdownRendererFactory } from '@jupyterlab/rendermime';
-import { IEditorLanguageRegistry, IEditorThemeRegistry } from '@jupyterlab/codemirror';
+import {
+  IEditorLanguageRegistry,
+  IEditorThemeRegistry
+} from '@jupyterlab/codemirror';
 
 import MarkdownIt, { Options } from 'markdown-it';
 
 import { RenderedMarkdown } from './widgets';
 import { Hook, MarkdownItPluginProvider, Ranked, Renderer } from './types';
-import { codeMirrorHighlighter, codeMirrorPreloadHook } from './hooks/codemirror';
+import {
+  codeMirrorHighlighter,
+  codeMirrorPreloadHook
+} from './hooks/codemirror';
 
 // Provides resolved MarkdownIt options using the passed in options, the plugin
 // options, and default options.
-const resolveOptions = (widget: RenderedMarkdown, options: Options, providers: MarkdownItPluginProvider[], themeRegistry: IEditorThemeRegistry, languageRegistry: IEditorLanguageRegistry) => {
+const resolveOptions = (
+  widget: RenderedMarkdown,
+  options: Options,
+  providers: MarkdownItPluginProvider[],
+  themeRegistry: IEditorThemeRegistry,
+  languageRegistry: IEditorLanguageRegistry
+) => {
   // Build options table
   let allOptions: Options = {
     html: true,
@@ -30,19 +42,24 @@ const resolveOptions = (widget: RenderedMarkdown, options: Options, providers: M
         // Add options for this plugin
         allOptions = { ...allOptions, ...plugin.options(widget) };
       } catch (err) {
-        console.warn(`Failed to get options from markdown-it plugin ${plugin.id}`, err);
-      }  
+        console.warn(
+          `Failed to get options from markdown-it plugin ${plugin.id}`,
+          err
+        );
+      }
     }
   }
 
-
   return {
     ...allOptions,
-    ...options };
-}
+    ...options
+  };
+};
 
-export function markdownItManager(themeRegistry: IEditorThemeRegistry, languageRegistry: IEditorLanguageRegistry) {
-
+export function markdownItManager(
+  themeRegistry: IEditorThemeRegistry,
+  languageRegistry: IEditorLanguageRegistry
+) {
   // The plugin providers
   const pluginProviders: Map<string, MarkdownItPluginProvider> = new Map();
 
@@ -56,15 +73,20 @@ export function markdownItManager(themeRegistry: IEditorThemeRegistry, languageR
       widget: RenderedMarkdown,
       options: Options = {}
     ): Promise<Renderer> {
-  
       // Fetch the list of providers
       const providers = [...pluginProviders.values()];
       providers.sort(sortRanked);
-  
+
       // Create MarkdownIt instance
-      const allOptions = resolveOptions(widget, options, providers, themeRegistry, languageRegistry);
+      const allOptions = resolveOptions(
+        widget,
+        options,
+        providers,
+        themeRegistry,
+        languageRegistry
+      );
       let md = new MarkdownIt('default', allOptions);
-  
+
       // Lifecycle hooks
       const preParseHooks: Hook<string, string>[] = [];
       const postRenderHooks: Hook<HTMLElement, void>[] = [];
@@ -73,7 +95,7 @@ export function markdownItManager(themeRegistry: IEditorThemeRegistry, languageR
       if (codeMirrorHighlighter(languageRegistry) === allOptions.highlight) {
         preParseHooks.push(codeMirrorPreloadHook(languageRegistry));
       }
-  
+
       // Build MarkdownIt and load lifecycle hooks
       for (const provider of providers) {
         try {
@@ -91,7 +113,10 @@ export function markdownItManager(themeRegistry: IEditorThemeRegistry, languageR
             postRenderHooks.push(provider.hooks?.postRender);
           }
         } catch (err) {
-          console.warn(`Failed to load/use markdown-it plugin ${provider.id}`, err);
+          console.warn(
+            `Failed to load/use markdown-it plugin ${provider.id}`,
+            err
+          );
         }
       }
       // Sort hooks by rank
@@ -99,10 +124,9 @@ export function markdownItManager(themeRegistry: IEditorThemeRegistry, languageR
       postRenderHooks.sort(sortRanked);
 
       return {
-
         // Parse and render Markdown
-        render: (content) => {
-          return md.render(content)
+        render: content => {
+          return md.render(content);
         },
 
         // Run hooks serially
@@ -121,19 +145,20 @@ export function markdownItManager(themeRegistry: IEditorThemeRegistry, languageR
         }
       };
     }
-  }
+  };
 
   // Register the Renderer
-  markdownRendererFactory.createRenderer = (options: IRenderMime.IRendererOptions) => {
+  markdownRendererFactory.createRenderer = (
+    options: IRenderMime.IRendererOptions
+  ) => {
     return new RenderedMarkdown(options, manager);
   };
-  
+
   return manager;
 }
-
 
 // Sorts by rank, using 100 if no default is provided.
 const kDefaultRank = 100;
 const sortRanked = (left: Ranked, right: Ranked) => {
   return (left.rank ?? kDefaultRank) - (right.rank ?? kDefaultRank);
-}
+};

@@ -5,21 +5,20 @@
  *
  */
 
-import MarkdownIt from "markdown-it";
-import StateInline from "markdown-it/lib/rules_inline/state_inline";
-
+import MarkdownIt from 'markdown-it';
+import StateInline from 'markdown-it/lib/rules_inline/state_inline';
 
 export function spansPlugin(md: MarkdownIt) {
   function span(state: StateInline) {
-    const max = state.posMax
+    const max = state.posMax;
 
-    if (state.src.charCodeAt(state.pos) !== 0x5B) {
+    if (state.src.charCodeAt(state.pos) !== 0x5b) {
       // opening [
       return false;
     }
 
     const labelStart = state.pos + 1;
-    const labelEnd   = state.md.helpers.parseLinkLabel(state, state.pos, true);
+    const labelEnd = state.md.helpers.parseLinkLabel(state, state.pos, true);
 
     if (labelEnd < 0) {
       // parser failed to find closing ]
@@ -27,7 +26,7 @@ export function spansPlugin(md: MarkdownIt) {
     }
 
     const pos = labelEnd + 1;
-    if (pos < max && state.src.charCodeAt(pos) === 0x7B /* { */) {
+    if (pos < max && state.src.charCodeAt(pos) === 0x7b /* { */) {
       // probably found span
 
       state.pos = labelStart;
@@ -43,6 +42,6 @@ export function spansPlugin(md: MarkdownIt) {
     } else {
       return false;
     }
-  };
+  }
   md.inline.ruler.push('quarto-spans', span);
 }

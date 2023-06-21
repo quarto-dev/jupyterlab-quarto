@@ -1,9 +1,9 @@
 /*
-* figures.ts
-*
-* Copyright (C) 2020-2023 Posit Software, PBC
-*
-*/
+ * figures.ts
+ *
+ * Copyright (C) 2020-2023 Posit Software, PBC
+ *
+ */
 import { figuresPlugin } from '../plugins/figures';
 import { markdownItExtension } from './provider';
 

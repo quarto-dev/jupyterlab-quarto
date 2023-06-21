@@ -1,12 +1,11 @@
 /*
-* const.ts
-*
-* Copyright (C) 2020-2023 Posit Software, PBC
-*
-*/
+ * const.ts
+ *
+ * Copyright (C) 2020-2023 Posit Software, PBC
+ *
+ */
 import { Token } from '@lumino/coreutils';
-import { MarkdownItManager } from "./types";
-
+import { MarkdownItManager } from './types';
 
 // The namespace for this project
 export const kPackageNamespace = 'jupyterlab-quarto';

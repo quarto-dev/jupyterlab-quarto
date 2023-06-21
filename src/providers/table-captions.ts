@@ -1,9 +1,9 @@
 /*
-* table-captions.ts
-*
-* Copyright (C) 2020-2023 Posit Software, PBC
-*
-*/
+ * table-captions.ts
+ *
+ * Copyright (C) 2020-2023 Posit Software, PBC
+ *
+ */
 import { tableCaptionPlugin } from '../plugins/table-captions';
 import { markdownItExtension } from './provider';
 

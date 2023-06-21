@@ -3,25 +3,24 @@
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import ColumnAlignments from "./ColumnAlignments";
+import ColumnAlignments from './ColumnAlignments';
 
-export default class ParseTableResult
-{
-    Success = false;
+export default class ParseTableResult {
+  Success = false;
 
-    ColumnWidths: number[] = [];
+  ColumnWidths: number[] = [];
 
-    ColumnOffsets: number[] = [];
+  ColumnOffsets: number[] = [];
 
-    ColumnAlignments: ColumnAlignments[] = [];
+  ColumnAlignments: ColumnAlignments[] = [];
 
-    HeaderLess = false;
+  HeaderLess = false;
 
-    HeaderLines: string[][] = [];
+  HeaderLines: string[][] = [];
 
-    RowLines: string[][][] = [];
+  RowLines: string[][][] = [];
 
-    SeparatorLineOffsets: number[] = [];
+  SeparatorLineOffsets: number[] = [];
 
-    CurrentLine = 0;
+  CurrentLine = 0;
 }

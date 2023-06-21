@@ -1,9 +1,9 @@
 /*
-* widgets.ts
-*
-* Copyright (C) 2020-2023 Posit Software, PBC
-*
-*/
+ * widgets.ts
+ *
+ * Copyright (C) 2020-2023 Posit Software, PBC
+ *
+ */
 import { RenderedHTMLCommon, renderHTML } from '@jupyterlab/rendermime';
 import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 import { Message } from '@lumino/messaging';
@@ -11,8 +11,10 @@ import { MarkdownItManager, Renderer } from './types';
 
 // A mime rendered that renders Quarto Markdown
 export class RenderedMarkdown extends RenderedHTMLCommon {
-  
-  constructor(options: IRenderMime.IRendererOptions, manager: MarkdownItManager) {
+  constructor(
+    options: IRenderMime.IRendererOptions,
+    manager: MarkdownItManager
+  ) {
     super(options);
     this.addClass('quarto-rendered-md');
     this.markdownItManager = manager;
@@ -39,13 +41,13 @@ export class RenderedMarkdown extends RenderedHTMLCommon {
 
     // Transform source
     const markup = await renderer.preParse(source);
-  
+
     // Clear the content if there is no source.
     if (!markup) {
       host.textContent = '';
       return;
     }
-  
+
     // Render HTML.
     await renderHTML({
       host,
