@@ -143,19 +143,6 @@
       "@typescript-eslint"
     ],
     "rules": {
-      "@typescript-eslint/naming-convention": [
-        "error",
-        {
-          "selector": "interface",
-          "format": [
-            "PascalCase"
-          ],
-          "custom": {
-            "regex": "^I[A-Z]",
-            "match": true
-          }
-        }
-      ],
       "@typescript-eslint/no-unused-vars": [
         "warn",
         {
@@ -196,7 +183,8 @@
     "rules": {
       "property-no-vendor-prefix": null,
       "selector-no-vendor-prefix": null,
-      "value-no-vendor-prefix": null
+      "value-no-vendor-prefix": null,
+      "selector-class-pattern": null
     }
   }
 }

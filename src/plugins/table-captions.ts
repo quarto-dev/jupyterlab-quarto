@@ -68,7 +68,8 @@ function resolveTableCaption(
         maybeCaption.children !== null &&
         maybeCaption.children.length > 0 &&
         maybeCaption.children[0].type === kTokText;
-      const maybeCaptionText = isText ? maybeCaption.children![0].content : '';
+      const maybeCaptionText =
+        isText && maybeCaption.children ? maybeCaption.children[0].content : '';
       const match = maybeCaptionText.match(/^:\s([^{}]*)(?:\{.*\}){0,1}$/);
       if (match && match[1]) {
         // Carve out the existing tokens
@@ -84,7 +85,9 @@ function resolveTableCaption(
         capTokens[0].attrs = [];
 
         // Trim the content
-        capTokens[1].children![0].content = match[1];
+        if (capTokens[1].children && capTokens[1].children.length > 0) {
+          capTokens[1].children[0].content = match[1];
+        }
 
         // Close the caption
         capTokens[2].type = 'table_caption';

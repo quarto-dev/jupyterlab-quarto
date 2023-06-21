@@ -3,7 +3,9 @@ import type Token from 'markdown-it/lib/token';
 export const toAst = (toks: Token[]) => {
   let pos = 0;
   const inner = () => {
-    if (pos >= toks.length) return;
+    if (pos >= toks.length) {
+      return;
+    }
     const tok = toks[pos];
     if (tok.type.endsWith('_open')) {
       ++pos;
@@ -32,7 +34,9 @@ export const toAst = (toks: Token[]) => {
   const result: Token[] = [];
   while (pos < toks.length) {
     const node = inner();
-    if (node) result.push(node);
+    if (node) {
+      result.push(node);
+    }
   }
   return result;
 };

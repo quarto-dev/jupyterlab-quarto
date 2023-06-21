@@ -32,7 +32,7 @@ export const divPlugin = (md: MarkdownIt) => {
 
   // Render pandoc-style divs
   function renderEndDiv(): string {
-    return `</div>`;
+    return '</div>';
   }
 
   // TODO Implement a better test during validation run

@@ -13,7 +13,7 @@ const kTokCite = 'quarto_cite';
 
 export const citationPlugin = (md: MarkdownIt) => {
   // Very simple plugin example that surrounds @text with `code`
-  md.core.ruler.push('quarto-citation', function replaceAtSymbol(state) {
+  md.core.ruler.push('quarto-citation', state => {
     const tokens = state.tokens;
 
     for (const token of tokens) {

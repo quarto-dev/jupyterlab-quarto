@@ -19,7 +19,7 @@ export const divs = markdownItExtension({
         // Detect close divs that are directly after text (e.g. not back to back whitespace)
         // and add a whitespace. This will cause the close div to become a 'block'
         // rather than appearing as the end of the paragraph block
-        const blockedDivs = content.replace(kCloseDivNoBlock, `$1\n\n$2`);
+        const blockedDivs = content.replace(kCloseDivNoBlock, '$1\n\n$2');
         return Promise.resolve(blockedDivs);
       }
     }

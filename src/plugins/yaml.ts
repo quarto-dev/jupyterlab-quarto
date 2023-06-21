@@ -299,7 +299,7 @@ function renderTitle(titleBlock: TitleBlock) {
           const affil = author.affil[k];
           affils.push({
             value: affil,
-            padded: i > 0 && k == 0
+            padded: i > 0 && k === 0
           });
         }
       }
@@ -348,11 +348,11 @@ function renderTitle(titleBlock: TitleBlock) {
 function renderDocMetas(docMetas: string[]) {
   const rendered: string[] = [];
 
-  rendered.push(`<div class="quarto-meta-block">`);
+  rendered.push('<div class="quarto-meta-block">');
   docMetas.forEach(docMeta => {
     rendered.push(docMeta);
   });
-  rendered.push(`</div>`);
+  rendered.push('</div>');
 
   return rendered.join('\n');
 }
@@ -360,13 +360,13 @@ function renderDocMetas(docMetas: string[]) {
 function renderDocMeta(label: string, vals: DocMetaValue[]) {
   const rendered: string[] = [];
 
-  rendered.push(`<div class="quarto-meta">`);
+  rendered.push('<div class="quarto-meta">');
   rendered.push(`<p class="quarto-meta-title">${label}</p>`);
   vals.forEach(val => {
-    const clz = val.padded ? ` class="quarto-meta-padded"` : '';
+    const clz = val.padded ? ' class="quarto-meta-padded"' : '';
     rendered.push(`<p${clz}>${val.value}</p>`);
   });
-  rendered.push(`</div>`);
+  rendered.push('</div>');
 
   return rendered.join('\n');
 }
@@ -411,7 +411,7 @@ function parseAuthor(author: unknown): Author[] {
       }
 
       authors.push({
-        name: str('name', '')!,
+        name: str('name', '') ?? '',
         orcid: str('orcid'),
         affil: affiliations
       });

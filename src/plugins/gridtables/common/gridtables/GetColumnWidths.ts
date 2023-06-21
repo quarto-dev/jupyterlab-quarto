@@ -13,12 +13,12 @@ export default function getColumnWidths(line: string): number[] {
   // try to parse as a row separator line
   let columnMatch = line.substr(1).match(/[:-][-]+[:-]\+/g);
 
-  if (columnMatch == null) {
+  if (columnMatch === null) {
     // try to parse as a header separator line
     columnMatch = line.substr(1).match(/[:=][=]+[:=]\+/g);
   }
 
-  if (columnMatch == null) {
+  if (columnMatch === null) {
     return [];
   }
 

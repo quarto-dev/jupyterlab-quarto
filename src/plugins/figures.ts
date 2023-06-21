@@ -93,11 +93,11 @@ export function figuresPlugin(md: MarkdownIt, options: FigureOptions) {
       mutateToFigureTok(figure, 'open');
       mutateToFigureTok(state.tokens[i + 1], 'close');
 
-      if (options.dataType == true) {
+      if (options.dataType === true) {
         state.tokens[i - 1].attrPush(['data-type', 'image']);
       }
 
-      if (options.link == true && token.children.length === 1) {
+      if (options.link === true && token.children.length === 1) {
         token.children.unshift(new state.Token('link_open', 'a', 1));
         const src = image.attrGet('src');
         if (src !== null) {
@@ -106,7 +106,7 @@ export function figuresPlugin(md: MarkdownIt, options: FigureOptions) {
         token.children.push(new state.Token('link_close', 'a', -1));
       }
 
-      if (options.figcaption == true) {
+      if (options.figcaption === true) {
         if (image.children && image.children.length) {
           token.children.push(
             new state.Token(kTokFigCaptionOpen, 'figcaption', 1)
@@ -124,14 +124,14 @@ export function figuresPlugin(md: MarkdownIt, options: FigureOptions) {
         figure.attrs = image.attrs.filter(([k]) => k.match(f));
       }
 
-      if (options.tabindex == true) {
+      if (options.tabindex === true) {
         // add a tabindex property
         // you could use this with css-tricks.com/expanding-images-html5
         state.tokens[i - 1].attrPush(['tabindex', String(tabIndex)]);
         tabIndex++;
       }
 
-      if (options.lazyLoading == true) {
+      if (options.lazyLoading === true) {
         image.attrPush(['loading', 'lazy']);
       }
     }

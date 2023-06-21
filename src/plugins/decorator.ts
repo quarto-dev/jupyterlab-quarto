@@ -16,7 +16,7 @@ const kTokDecorator = 'quarto_decorator';
 const kQuartoDecoratorOptions = 'quarto-decorator-options';
 
 export const decoratorPlugin = (md: MarkdownIt) => {
-  md.core.ruler.push('quarto-decorator', function replaceAtSymbol(state) {
+  md.core.ruler.push('quarto-decorator', state => {
     const outTokens: Token[] = [];
     for (const token of state.tokens) {
       if (token.type === 'fence' && !token.attrs && token.info) {

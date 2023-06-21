@@ -35,7 +35,7 @@ export const calloutPlugin = (md: MarkdownIt) => {
   // Handle pandoc-style divs
   md.core.ruler.push(kCalloutRuleName, state => {
     const noteStartCallout = (callout: Callout, depth: number) => {
-      if (calloutDepth == -1) {
+      if (calloutDepth === -1) {
         calloutDepth = depth;
       }
       state.env['quarto-active-callout'] = callout;
@@ -183,7 +183,7 @@ function renderStartCallout(
 
 // Render pandoc-style divs
 function renderEndCallout(): string {
-  return `</div>`;
+  return '</div>';
 }
 
 function renderStartCalloutTitle(tokens: Token[], idx: number): string {
@@ -200,7 +200,7 @@ function renderStartCalloutTitle(tokens: Token[], idx: number): string {
 }
 
 function renderEndCalloutTitle(): string {
-  return `</div>\n</div>`;
+  return '</div>\n</div>';
 }
 
 const calloutAppearance = (val: string | undefined) => {
