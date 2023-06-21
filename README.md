@@ -1,6 +1,7 @@
 # jupyterlab_quarto
 
 [![Github Actions Status](https://github.com/quarto-dev/jupyterlab-quarto/workflows/Build/badge.svg)](https://github.com/quarto-dev/jupyterlab-quarto/actions/workflows/build.yml)
+
 Jupyter extension to enable authoring of Quarto documents within Jupyterlab Notebooks.
 
 ## Requirements
@@ -86,7 +87,7 @@ jlpm test
 
 #### Integration tests
 
-This extension uses [Playwright](https://playwright.dev/docs/intro/) for the integration tests (aka user level tests).
+This extension uses [Playwright](https://playwright.dev/) for the integration tests (aka user level tests).
 More precisely, the JupyterLab helper [Galata](https://github.com/jupyterlab/jupyterlab/tree/master/galata) is used to handle testing the extension in JupyterLab.
 
 More information are provided within the [ui-tests](./ui-tests/README.md) README.
