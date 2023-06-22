@@ -76,6 +76,8 @@ folder is located. Then you can remove the symlink named `@quarto/jupyterlab-qua
 
 ### Testing the extension
 
+Tests are currently extremely minimal.
+
 #### Frontend tests
 
 This extension is using [Jest](https://jestjs.io/) for JavaScript code testing.
