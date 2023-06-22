@@ -8,12 +8,12 @@ file_extension: ''
 has_binder: false
 has_settings: false
 kind: frontend
-labextension_name: jupyterlab-quarto
+labextension_name: '@quarto/jupyterlab-quarto'
 mimetype: ''
 mimetype_name: ''
 project_short_description: Jupyter extension to enable authoring of Quarto documents
     within Jupyterlab Notebooks.
-python_name: jupyterlab_quarto
+python_name: jupyterlab-quarto
 repository: https://github.com/quarto-dev/jupyterlab-quarto
 test: true
 viewer_name: ''
