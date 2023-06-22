@@ -15,6 +15,6 @@ project_short_description: Jupyter extension to enable authoring of Quarto docum
     within Jupyterlab Notebooks.
 python_name: jupyterlab_quarto
 repository: https://github.com/quarto-dev/jupyterlab-quarto
-test: true
+test: false
 viewer_name: ''
 
