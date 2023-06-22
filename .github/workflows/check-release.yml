@@ -16,6 +16,15 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install -e .
+          
+      - name: Make dir hack
+        run: |
+          mkdir .jupyter_releaser_checkout
+          cd .jupyter_releaser_checkout
+          mkdir dist
+          cd ..
+          cp package.json .jupyter_releaser_checkout/dist/package.json
+          
       - name: Check Release
         uses: jupyter-server/jupyter_releaser/.github/actions/check-release@v2
         with:
