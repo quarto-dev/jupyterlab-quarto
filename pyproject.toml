@@ -3,7 +3,7 @@ requires = ["hatchling>=1.5.0", "jupyterlab>=4.0.0,<5", "hatch-nodejs-version"]
 build-backend = "hatchling.build"
 
 [project]
-name = "jupyterlab-quarto"
+name = "jupyterlab_quarto"
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.8"
@@ -32,24 +32,24 @@ source = "nodejs"
 fields = ["description", "authors", "urls"]
 
 [tool.hatch.build.targets.sdist]
-artifacts = ["jupyterlab-quarto/labextension"]
+artifacts = ["jupyterlab_quarto/labextension"]
 exclude = [".github", "binder"]
 
 [tool.hatch.build.targets.wheel.shared-data]
-"jupyterlab-quarto/labextension" = "share/jupyter/labextensions/@quarto/jupyterlab-quarto"
+"jupyterlab_quarto/labextension" = "share/jupyter/labextensions/@quarto/jupyterlab-quarto"
 "install.json" = "share/jupyter/labextensions/@quarto/jupyterlab-quarto/install.json"
 
 [tool.hatch.build.hooks.version]
-path = "jupyterlab-quarto/_version.py"
+path = "jupyterlab_quarto/_version.py"
 
 [tool.hatch.build.hooks.jupyter-builder]
 dependencies = ["hatch-jupyter-builder>=0.5"]
 build-function = "hatch_jupyter_builder.npm_builder"
 ensured-targets = [
-    "jupyterlab-quarto/labextension/static/style.js",
-    "jupyterlab-quarto/labextension/package.json",
+    "jupyterlab_quarto/labextension/static/style.js",
+    "jupyterlab_quarto/labextension/package.json",
 ]
-skip-if-exists = ["jupyterlab-quarto/labextension/static/style.js"]
+skip-if-exists = ["jupyterlab_quarto/labextension/static/style.js"]
 
 [tool.hatch.build.hooks.jupyter-builder.build-kwargs]
 build_cmd = "build:prod"
@@ -59,7 +59,7 @@ npm = ["jlpm"]
 build_cmd = "install:extension"
 npm = ["jlpm"]
 source_dir = "src"
-build_dir = "jupyterlab-quarto/labextension"
+build_dir = "jupyterlab_quarto/labextension"
 
 [tool.jupyter-releaser.options]
 version_cmd = "hatch version"
