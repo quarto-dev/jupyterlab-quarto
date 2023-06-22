@@ -16,7 +16,6 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install -e .
-          
       - name: Check Release
         uses: jupyter-server/jupyter_releaser/.github/actions/check-release@v2
         with:
@@ -27,4 +26,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: jupyterlab_quarto-releaser-dist-${{ github.run_number }}
-          path: .jupyter_releaser_checkout/
+          path: .jupyter_releaser_checkout/dist
