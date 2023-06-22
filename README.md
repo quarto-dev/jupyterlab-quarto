@@ -93,4 +93,4 @@ More information are provided within the [ui-tests](./ui-tests/README.md) README
 
 ### Packaging the extension
 
-See [RELEASE](RELEASE.md)
+See [RELEASE](RELEASE.md) for more information on releasing.
