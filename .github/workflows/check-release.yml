@@ -27,4 +27,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: jupyterlab_quarto-releaser-dist-${{ github.run_number }}
-          path: .jupyter_releaser_checkout/dist
+          path: .jupyter_releaser_checkout/
