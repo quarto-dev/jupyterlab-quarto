@@ -12,5 +12,5 @@ except ImportError:
 def _jupyter_labextension_paths():
     return [{
         "src": "labextension",
-        "dest": "jupyterlab-quarto"
+        "dest": "jupyterlab_quarto"
     }]
