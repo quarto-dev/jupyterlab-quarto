@@ -1,7 +1,7 @@
 {
-  "name": "@quarto/jupyterlab-quarto-ui-tests",
+  "name": "jupyterlab-quarto-ui-tests",
   "version": "1.0.0",
-  "description": "JupyterLab @quarto/jupyterlab-quarto Integration Tests",
+  "description": "JupyterLab jupyterlab-quarto Integration Tests",
   "private": true,
   "scripts": {
     "start": "jupyter lab --config jupyter_server_test_config.py",

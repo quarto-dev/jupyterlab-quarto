@@ -1,5 +1,5 @@
 {
-  "name": "@quarto/jupyterlab-quarto",
+  "name": "jupyterlab-quarto",
   "version": "0.1.0",
   "description": "Jupyter extension to enable authoring of Quarto documents within Jupyterlab Notebooks.",
   "keywords": [
@@ -17,7 +17,6 @@
     "email": "charles@posit.co"
   },
   "files": [
-    "src/**/*.{d.ts,eot,gif,html,jpg,js,js.map,json,png,svg,woff2,ttf}",
     "lib/**/*.{d.ts,eot,gif,html,jpg,js,js.map,json,png,svg,woff2,ttf}",
     "style/**/*.{css,js,eot,gif,html,jpg,json,png,svg,woff2,ttf}"
   ],

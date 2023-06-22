@@ -36,8 +36,8 @@ artifacts = ["jupyterlab_quarto/labextension"]
 exclude = [".github", "binder"]
 
 [tool.hatch.build.targets.wheel.shared-data]
-"jupyterlab_quarto/labextension" = "share/jupyter/labextensions/@quarto/jupyterlab-quarto"
-"install.json" = "share/jupyter/labextensions/@quarto/jupyterlab-quarto/install.json"
+"jupyterlab_quarto/labextension" = "share/jupyter/labextensions/jupyterlab-quarto"
+"install.json" = "share/jupyter/labextensions/jupyterlab-quarto/install.json"
 
 [tool.hatch.build.hooks.version]
 path = "jupyterlab_quarto/_version.py"
