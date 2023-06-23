@@ -49,7 +49,7 @@ const plugin: JupyterFrontEndPlugin<MarkdownItManager> = {
     themeRegistry: IEditorThemeRegistry,
     languageRegistry: IEditorLanguageRegistry
   ) => {
-    console.log('JupyterLab extension jupyterlab_quarto is activated!');
+    console.log('JupyterLab extension jupyterlab-quarto is activated!');
 
     // Create a markdown rendering manager
     return markdownItManager(themeRegistry, languageRegistry);
