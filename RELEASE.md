@@ -1,4 +1,4 @@
-# Making a new release of jupyterlab-quarto
+# Making a new release of jupyterlab_quarto
 
 The extension can be published to `PyPI` and `npm` manually or using the [Jupyter Releaser](https://github.com/jupyter-server/jupyter_releaser).
 
@@ -26,11 +26,13 @@ hatch version <new-version>
 To create a Python source package (`.tar.gz`) and the binary package (`.whl`) in the `dist/` directory, do:
 
 ```bash
-jlpm clean:all
-git clean -dfX
-jlpm build
+jlpm clean:all && git clean -dfX
+sed -i '' 's/"@quarto\/jupyterlab-quarto"/"jupyterlab-quarto"/g' package.json
+jlpm && jlpm build:prod
 python -m build
 twine upload dist/*
+sed -i '' 's/"jupyterlab-quarto"/"@quarto\/jupyterlab-quarto"/g' package.json
+jlpm
 ```
 
 > `python setup.py sdist bdist_wheel` is deprecated and will not work for this package.
@@ -40,9 +42,8 @@ twine upload dist/*
 To publish the frontend part of the extension as a NPM package, do:
 
 ```bash
-jlpm clean:all
-git clean -dfX
-jlpm build
+jlpm clean:all && git clean -dfX
+jlpm && jlpm build:prod
 npm login
 npm publish --access public
 ```
