@@ -21,22 +21,17 @@ See the docs on [hatch-nodejs-version](https://github.com/agoose77/hatch-nodejs-
 hatch version <new-version>
 ```
 
-Make sure to clean up all the development files before building the package:
-
-```bash
-jlpm clean:all
-```
-
-You could also clean up the local git repository:
-
-```bash
-git clean -dfX
-```
+**Before building, note that you must temporarily update the `package.json` file to remove the `@quarto` prefix from the package name.**
 
 To create a Python source package (`.tar.gz`) and the binary package (`.whl`) in the `dist/` directory, do:
 
 ```bash
+jlpm clean:all
+git clean -dfX
+rm dist/*
+jlpm build
 python -m build
+twine upload dist/*
 ```
 
 > `python setup.py sdist bdist_wheel` is deprecated and will not work for this package.
@@ -44,7 +39,7 @@ python -m build
 Then to upload the package to PyPI, do:
 
 ```bash
-twine upload dist/*
+
 ```
 
 ### NPM package
@@ -52,6 +47,9 @@ twine upload dist/*
 To publish the frontend part of the extension as a NPM package, do:
 
 ```bash
+jlpm clean:all
+git clean -dfX
+jlpm build
 npm login
 npm publish --access public
 ```
