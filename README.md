@@ -13,11 +13,8 @@ The JupyterLab Quarto extension allows JupyterLab to render notebooks which incl
 
 You can try an example of the extension in a notebook (though you can't actually render the notebook using Quarto) on Binder.
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/quarto-dev/jupyterlab-quarto/main?urlpath=lab)
-
-## Status
-
-[![Github Actions Status](https://github.com/quarto-dev/jupyterlab-quarto/workflows/Build/badge.svg)](https://github.com/quarto-dev/jupyterlab-quarto/actions/workflows/build.yml)
+[![Github Actions Status](https://github.com/quarto-dev/jupyterlab-quarto/workflows/Build/badge.svg)](https://github.com/quarto-dev/jupyterlab-quarto/actions/workflows/build.yml)[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/quarto-dev/jupyterlab-quarto/main?urlpath=lab)
+Jupyter extension to enable authoring of Quarto documents within Jupyterlab Notebooks.
 
 ## Requirements
 
@@ -28,7 +25,7 @@ You can try an example of the extension in a notebook (though you can't actually
 To install the extension, execute:
 
 ```bash
-pip install jupyterlab_quarto
+pip install @quarto/jupyterlab-quarto
 ```
 
 ## Uninstall
@@ -36,7 +33,7 @@ pip install jupyterlab_quarto
 To remove the extension, execute:
 
 ```bash
-pip uninstall jupyterlab_quarto
+pip uninstall @quarto/jupyterlab-quarto
 ```
 
 ## Contributing
@@ -51,7 +48,7 @@ The `jlpm` command is JupyterLab's pinned version of
 
 ```bash
 # Clone the repo to your local environment
-# Change directory to the jupyterlab_quarto directory
+# Change directory to the @quarto/jupyterlab-quarto directory
 # Install package in development mode
 pip install -e "."
 # Link your development version of the extension with JupyterLab
@@ -80,7 +77,7 @@ jupyter lab build --minimize=False
 ### Development uninstall
 
 ```bash
-pip uninstall jupyterlab_quarto
+pip uninstall @quarto/jupyterlab-quarto
 ```
 
 In development mode, you will also need to remove the symlink created by `jupyter labextension develop`

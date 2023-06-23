@@ -1,10 +1,10 @@
-# a mybinder.org-ready environment for demoing jupyterlab_quarto
+# a mybinder.org-ready environment for demoing @quarto/jupyterlab-quarto
 # this environment may also be used locally on Linux/MacOS/Windows, e.g.
 #
 #   conda env update --file binder/environment.yml
-#   conda activate jupyterlab-quarto-demo
+#   conda activate @quarto/jupyterlab-quarto-demo
 #
-name: jupyterlab-quarto-demo
+name: @quarto/jupyterlab-quarto-demo
 
 channels:
   - conda-forge
