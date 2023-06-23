@@ -37,9 +37,9 @@ jobs:
         jlpm
         jlpm clean:all
         git clean -dfX
-        sed -i '' 's/"@quarto\/jupyterlab-quarto"/"jupyterlab-quarto"/g' package.json
+        sed -i 's/"@quarto\/jupyterlab-quarto"/"jupyterlab-quarto"/g' package.json
         python -m build
-        sed -i '' 's/"jupyterlab-quarto"/"@quarto\/jupyterlab-quarto"/g' package.json
+        sed -i 's/"jupyterlab-quarto"/"@quarto\/jupyterlab-quarto"/g' package.json
         jlpm
 
 
