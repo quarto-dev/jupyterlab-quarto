@@ -55,4 +55,3 @@ To publish the frontend part of the extension as a NPM package, do:
 npm login
 npm publish --access public
 ```
-
