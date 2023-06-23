@@ -1,6 +1,6 @@
 # jupyterlab_quarto
 
-[![Github Actions Status](https://github.com/quarto-dev/jupyterlab-quarto/workflows/Build/badge.svg)](https://github.com/quarto-dev/jupyterlab-quarto/actions/workflows/build.yml)
+[![Github Actions Status](https://github.com/quarto-dev/jupyterlab-quarto/workflows/Build/badge.svg)](https://github.com/quarto-dev/jupyterlab-quarto/actions/workflows/build.yml)[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/quarto-dev/jupyterlab-quarto/main?urlpath=lab)
 Jupyter extension to enable authoring of Quarto documents within Jupyterlab Notebooks.
 
 ## Requirements
