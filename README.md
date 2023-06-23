@@ -1,7 +1,23 @@
-# jupyterlab_quarto
+# JupyterLab Quarto Extension
 
-[![Github Actions Status](https://github.com/quarto-dev/jupyterlab-quarto/workflows/Build/badge.svg)](https://github.com/quarto-dev/jupyterlab-quarto/actions/workflows/build.yml)[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/quarto-dev/jupyterlab-quarto/main?urlpath=lab)
-Jupyter extension to enable authoring of Quarto documents within Jupyterlab Notebooks.
+[Quarto](https://www.quarto.org) is an open source project that combines Jupyter notebooks with flexible options to use a single source document to produce high-quality articles, reports, presentations, websites, and books in HTML, PDF, MS Word, ePub, and more. Quarto supports a wide variety of useful new features useful in technical documents, including support for LaTeX equations, citations, cross-references, figure panels, callouts, advanced page layout, and more. 
+
+The JupyterLab Quarto extension allows JupyterLab to render notebooks which include Quarto markdown content.
+<br/><br/>
+<p align="center">
+<img src="https://user-images.githubusercontent.com/261654/230087634-d5027ebc-8508-43b4-81c9-c4b7d6cfa738.png" width="60%">
+</p>
+
+### Binder
+
+You can try an example of the extension in a notebook (though you can't actually render the notebook using Quarto) on Binder. 
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/quarto-dev/jupyterlab-quarto/main?urlpath=lab)
+
+
+## Status
+
+[![Github Actions Status](https://github.com/quarto-dev/jupyterlab-quarto/workflows/Build/badge.svg)](https://github.com/quarto-dev/jupyterlab-quarto/actions/workflows/build.yml)
 
 ## Requirements
 
