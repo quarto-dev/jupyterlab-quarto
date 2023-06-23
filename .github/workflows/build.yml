@@ -135,7 +135,7 @@ jobs:
       if: always()
       uses: actions/upload-artifact@v3
       with:
-        name: "@quarto/jupyterlab-quarto-playwright-tests"
+        name: @quarto/jupyterlab-quarto-playwright-tests
         path: |
           ui-tests/test-results
           ui-tests/playwright-report
