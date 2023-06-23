@@ -35,12 +35,6 @@ twine upload dist/*
 
 > `python setup.py sdist bdist_wheel` is deprecated and will not work for this package.
 
-Then to upload the package to PyPI, do:
-
-```bash
-
-```
-
 ### NPM package
 
 To publish the frontend part of the extension as a NPM package, do:
