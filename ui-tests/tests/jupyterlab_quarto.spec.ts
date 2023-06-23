@@ -17,7 +17,7 @@ test('should emit an activation console message', async ({ page }) => {
 
   expect(
     logs.filter(
-      s => s === 'JupyterLab extension jupyterlab-quarto is activated!'
+      s => s === 'JupyterLab extension jupyterlab_quarto is activated!'
     )
   ).toHaveLength(1);
 });
