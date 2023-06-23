@@ -112,7 +112,12 @@
     },
     "jupyterlab": {
         "extension": true,
-        "outputDir": "jupyterlab_quarto/labextension"
+        "outputDir": "jupyterlab_quarto/labextension",
+        "disabledExtensions": [
+            "jupyterlab-myst:plugin",
+            "jupyterlab-myst:legacyPlugin",
+            "jupyterlab-myst:executor"
+        ]        
     },
     "eslintIgnore": [
         "node_modules",
