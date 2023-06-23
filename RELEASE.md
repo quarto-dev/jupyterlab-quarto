@@ -1,4 +1,4 @@
-# Making a new release of @quarto/jupyterlab-quarto
+# Making a new release of jupyterlab_quarto
 
 The extension can be published to `PyPI` and `npm` manually or using the [Jupyter Releaser](https://github.com/jupyter-server/jupyter_releaser).
 
