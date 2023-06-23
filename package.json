@@ -1,6 +1,6 @@
 {
-    "version": "0.2.3",
-    "name": "@quarto/jupyterlab-quarto",
+    "version": "0.2.4",
+    "name": "jupyterlab-quarto",
     "description": "Jupyter extension to enable authoring of Quarto documents within Jupyterlab Notebooks.",
     "keywords": [
         "jupyter",
@@ -37,7 +37,7 @@
         "clean": "jlpm clean:lib",
         "clean:lib": "rimraf lib tsconfig.tsbuildinfo",
         "clean:lintcache": "rimraf .eslintcache .stylelintcache",
-        "clean:labextension": "rimraf jupyterlab_quarto/labextension jupyterlab_quarto/_version.py",
+        "clean:labextension": "rimraf jupyterlab-quarto/labextension jupyterlab-quarto/_version.py",
         "clean:all": "jlpm clean:lib && jlpm clean:labextension && jlpm clean:lintcache",
         "eslint": "jlpm eslint:check --fix",
         "eslint:check": "eslint . --cache --ext .ts,.tsx",
@@ -112,7 +112,7 @@
     },
     "jupyterlab": {
         "extension": true,
-        "outputDir": "jupyterlab_quarto/labextension",
+        "outputDir": "jupyterlab-quarto/labextension",
         "disabledExtensions": [
             "jupyterlab-myst:plugin",
             "jupyterlab-myst:legacyPlugin",

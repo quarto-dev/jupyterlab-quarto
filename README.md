@@ -28,7 +28,7 @@ You can try an example of the extension in a notebook (though you can't actually
 To install the extension, execute:
 
 ```bash
-pip install jupyterlab_quarto
+pip install jupyterlab-quarto
 ```
 
 ## Uninstall
@@ -36,7 +36,7 @@ pip install jupyterlab_quarto
 To remove the extension, execute:
 
 ```bash
-pip uninstall jupyterlab_quarto
+pip uninstall jupyterlab-quarto
 ```
 
 ## Contributing
@@ -51,7 +51,7 @@ The `jlpm` command is JupyterLab's pinned version of
 
 ```bash
 # Clone the repo to your local environment
-# Change directory to the jupyterlab_quarto directory
+# Change directory to the jupyterlab-quarto directory
 # Install package in development mode
 pip install -e "."
 # Link your development version of the extension with JupyterLab
@@ -80,7 +80,7 @@ jupyter lab build --minimize=False
 ### Development uninstall
 
 ```bash
-pip uninstall jupyterlab_quarto
+pip uninstall jupyterlab-quarto
 ```
 
 In development mode, you will also need to remove the symlink created by `jupyter labextension develop`
