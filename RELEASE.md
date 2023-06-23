@@ -28,7 +28,6 @@ To create a Python source package (`.tar.gz`) and the binary package (`.whl`) in
 ```bash
 jlpm clean:all
 git clean -dfX
-rm dist/*
 jlpm build
 python -m build
 twine upload dist/*
