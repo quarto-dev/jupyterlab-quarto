@@ -62,16 +62,22 @@ MathJax = {
           });
 
           const markdownNodes = nodes.filter((node) => {
-            return node.class.contains("jp-MarkdownCell");
+            return node.classList.contains("jp-MarkdownCell");
           }).forEach((node) => {
             typesetCellObserver.observe(node, { childList: true, subtree: true });
           });
           
         });
 
-        const nbContainer = document.querySelector('.jp-Notebook');
-        if (nbContainer !== null) {
-          containerObserver.observe(nbContainer, { childList: true });
+        const cellEl = document.querySelector('.jp-Cell');
+        if (cellEl !== null) {
+          const cellParentEl = cellEl.parentElement;
+          containerObserver.observe(cellParentEl, { childList: true });
+        } else {
+          const nbContainer = document.querySelector('.jp-Notebook');
+          if (nbContainer !== null) {
+            containerObserver.observe(nbContainer, { childList: true, subtree: true });
+          }  
         }
 
         const mathEls = document.body.querySelectorAll('.quarto-inline-math, .quarto-display-math');
