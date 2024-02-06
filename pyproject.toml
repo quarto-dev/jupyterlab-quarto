@@ -35,6 +35,9 @@ fields = ["description", "authors", "urls"]
 artifacts = ["jupyterlab-quarto/labextension"]
 exclude = [".github", "binder"]
 
+[tool.hatch.build.targets.wheel]
+packages = ["jupyterlab-quarto"]
+
 [tool.hatch.build.targets.wheel.shared-data]
 "jupyterlab-quarto/labextension" = "share/jupyter/labextensions/jupyterlab-quarto"
 "install.json" = "share/jupyter/labextensions/jupyterlab-quarto/install.json"
