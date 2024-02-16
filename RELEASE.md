@@ -47,3 +47,7 @@ jlpm && jlpm build:prod
 npm login
 npm publish --access public
 ```
+
+### Tag
+
+Once completed, publish a release on GitHub, and be sure to create a new tag that corresponds to the version.
