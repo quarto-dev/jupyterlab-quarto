@@ -22,6 +22,7 @@ on:
         required: false
         type: choice
         options:
+          - none
           - patch
           - minor
           - major
@@ -57,7 +58,7 @@ jobs:
         jlpm run test
 
     - name: Increment the Version
-      if: ${{ inputs.increment-version }}
+      if: ${{ inputs.increment-version && inputs.increment-version != "none" }}
       run: |
         hatch version ${{ inputs.increment-version }}
     
