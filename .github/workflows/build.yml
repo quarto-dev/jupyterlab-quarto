@@ -58,14 +58,17 @@ jobs:
         jlpm run test
 
     - name: Increment the Version
+      id: version
       if: ${{ inputs.increment-version && inputs.increment-version != 'none' }}
       run: |
         hatch version ${{ inputs.increment-version }}
+        echo "VERSION_NAME=$(hatch version)" >> $GITHUB_OUTPUT
     
     # Commit all changed files back to the repository
     - uses: stefanzweifel/git-auto-commit-action@v5     
       with:
         commit_message: Increment Version
+        tagging_message: ${{ steps.version.outputs.VERSION_NAME }}
        
     - name: Build the extension
       run: |
