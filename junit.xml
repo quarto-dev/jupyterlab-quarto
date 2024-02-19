@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="1" failures="0" errors="0" time="3.218">
+  <testsuite name="@quarto/jupyterlab-quarto" errors="0" failures="0" skipped="0" timestamp="2024-02-19T13:49:16" time="2.832" tests="1">
+    <testcase classname="@quarto/jupyterlab-quarto should be tested" name="@quarto/jupyterlab-quarto should be tested" time="0.002">
+    </testcase>
+  </testsuite>
+</testsuites>
