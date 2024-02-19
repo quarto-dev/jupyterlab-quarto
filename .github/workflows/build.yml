@@ -66,6 +66,7 @@ jobs:
     
     # Commit all changed files back to the repository
     - uses: stefanzweifel/git-auto-commit-action@v5     
+      if: ${{ inputs.increment-version && inputs.increment-version != 'none' }}
       with:
         commit_message: Increment Version
         tagging_message: ${{ steps.version.outputs.VERSION_NAME }}
