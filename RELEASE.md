@@ -5,7 +5,6 @@ The extension can be published to `PyPI` and `npm` manually or using the `Build`
 > [!NOTE]  
 > Just use the [Build GitHub Action](https://github.com/quarto-dev/jupyterlab-quarto/actions/workflows/build.yml) to publish releases.
 
-
 ## Manual release
 
 ### Python package
