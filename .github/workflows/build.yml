@@ -65,6 +65,6 @@ jobs:
         jlpm && jlpm build:prod
 
     - uses: JS-DevTools/npm-publish@v3
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
+      with:
+        token: ${{ secrets.NPM_TOKEN }}
       if: ${{ inputs.publish-release }}          
