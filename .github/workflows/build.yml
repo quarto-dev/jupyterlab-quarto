@@ -5,7 +5,13 @@ on:
     branches: main
   pull_request:
     branches: '*'
-
+  workflow_dispatch:
+    inputs:
+      publish-release:
+        description: "Production Release"
+        required: false
+        type: boolean
+        default: false
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -42,6 +48,23 @@ jobs:
         sed -i 's/"@quarto\/jupyterlab-quarto"/"jupyterlab-quarto"/g' package.json
         python -m build
         sed -i 's/"jupyterlab-quarto"/"@quarto\/jupyterlab-quarto"/g' package.json
-        jlpm
 
+    - name: Publish package distributions to TestPyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      if: ${{ ! inputs.publish-release }}
+      with:
+        repository-url: https://test.pypi.org/legacy/
+        
+    - name: Publish package distributions to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      if: ${{ inputs.publish-release }}
 
+    - name: Build the NPM Front End
+      run: |
+        jlpm clean:all && git clean -dfX
+        jlpm && jlpm build:prod
+
+    - uses: JS-DevTools/npm-publish@v3
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+      if: ${{ inputs.publish-release }}          
