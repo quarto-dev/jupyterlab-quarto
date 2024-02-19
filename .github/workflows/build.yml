@@ -79,13 +79,13 @@ jobs:
         
     - name: Publish package distributions to TestPyPI
       uses: pypa/gh-action-pypi-publish@release/v1
-      if: ${{ publish-release && ! inputs.production-release }}
+      if: ${{ inputs.publish-release && ! inputs.production-release }}
       with:
         repository-url: https://test.pypi.org/legacy/
         
     - name: Publish package distributions to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
-      if: ${{ publish-release && inputs.production-release }}
+      if: ${{ inputs.publish-release && inputs.production-release }}
 
     - name: Build the NPM Front End
       run: |
@@ -95,4 +95,4 @@ jobs:
     - uses: JS-DevTools/npm-publish@v3
       with:
         token: ${{ secrets.NPM_TOKEN }}
-      if: ${{ publish-release && inputs.production-release }}          
+      if: ${{ inputs.publish-release && inputs.production-release }}          
