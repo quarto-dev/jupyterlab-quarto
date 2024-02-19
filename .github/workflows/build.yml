@@ -58,7 +58,7 @@ jobs:
         jlpm run test
 
     - name: Increment the Version
-      if: ${{ inputs.increment-version && inputs.increment-version != "none" }}
+      if: ${{ inputs.increment-version && inputs.increment-version != 'none' }}
       run: |
         hatch version ${{ inputs.increment-version }}
     
