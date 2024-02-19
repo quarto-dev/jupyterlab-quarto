@@ -17,6 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
         id-token: write
+        contents: write
   
     steps:
     - name: Checkout
@@ -47,7 +48,9 @@ jobs:
         hatch version patch
     
     # Commit all changed files back to the repository
-    - uses: stefanzweifel/git-auto-commit-action@v5        
+    - uses: stefanzweifel/git-auto-commit-action@v5     
+      with:
+        commit_message: Increment Version
        
     - name: Build the extension
       run: |
