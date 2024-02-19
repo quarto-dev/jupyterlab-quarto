@@ -1,6 +1,10 @@
 # Making a new release of jupyterlab_quarto
 
-The extension can be published to `PyPI` and `npm` manually or using the [Jupyter Releaser](https://github.com/jupyter-server/jupyter_releaser).
+The extension can be published to `PyPI` and `npm` manually or using the `Build` GitHub Action that is configured for this repo.
+
+> [!NOTE]  
+> Just use the [Build GitHub Action](https://github.com/quarto-dev/jupyterlab-quarto/actions/workflows/build.yml) to publish releases.
+
 
 ## Manual release
 
