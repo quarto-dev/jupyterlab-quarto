@@ -40,52 +40,26 @@ MathJax = {
             .catch((err) => console.log('Typeset failed: ' + err.message));
           return MathJax.startup.promise;
         };
-        
-        const typesetCellObserver = new MutationObserver((mutationList, observer) => { 
-          const els = mutationList.map((list) => list.target);          
-          const typesetEls = [];
-          for (const el of els) {
-            const childMathEls = el.querySelectorAll('.quarto-inline-math, .quarto-display-math');
-            if (childMathEls && childMathEls.length > 0) {
-              typesetEls.push(...childMathEls);
-            }
-          }
-          typesetMath(typesetEls);
-        });        
 
         const containerObserver = new MutationObserver((mutationList, observer) => { 
-          const nodes = [];
+          const markdownNodes = [];
           mutationList.forEach((record) => {
             for (const node of record.addedNodes) {
-              nodes.push(node);
+              if(node.querySelectorAll){
+                markdownNodes.push(...node.querySelectorAll('.quarto-inline-math, .quarto-display-math'));
+              }
             }
           });
-
-          const markdownNodes = nodes.filter((node) => {
-            return node.classList.contains("jp-MarkdownCell");
-          }).forEach((node) => {
-            typesetCellObserver.observe(node, { childList: true, subtree: true });
-          });
-          
+          typesetMath(markdownNodes);
         });
 
-        const cellEl = document.querySelector('.jp-Cell');
-        if (cellEl !== null) {
-          const cellParentEl = cellEl.parentElement;
-          containerObserver.observe(cellParentEl, { childList: true });
-        } else {
-          const nbContainer = document.querySelector('.jp-Notebook');
-          if (nbContainer !== null) {
-            containerObserver.observe(nbContainer, { childList: true, subtree: true });
-          }  
+        const nbContainer = document.querySelector('.jp-Notebook');
+        if (nbContainer !== null) {
+          containerObserver.observe(nbContainer, { childList: true, subtree: true });
         }
 
         const mathEls = document.body.querySelectorAll('.quarto-inline-math, .quarto-display-math');
-        return typesetMath([...mathEls]).then(() => {
-          for (const mathEl of mathEls) {
-            typesetCellObserver.observe(mathEl.parentElement, { childList: true, subtree: true });
-          }    
-        });
+        return typesetMath([...mathEls]);
       });
     },
   }
